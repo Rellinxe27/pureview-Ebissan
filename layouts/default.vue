@@ -24,18 +24,34 @@ const navItems = [
   { label: 'Settings',           icon: 'fa-gear',           route: '/settings' },
 ]
 
+// Primary destinations surfaced in the mobile bottom tab bar.
+const tabItems = [
+  { label: 'Home',     icon: 'fa-house',          route: '/' },
+  { label: 'Appts',    icon: 'fa-clipboard-list',  route: '/appointments' },
+  { label: 'Clients',  icon: 'fa-users',           route: '/clients' },
+  { label: 'Invoices', icon: 'fa-file-lines',      route: '/invoices' },
+]
+
 const memberCount = computed(() => members.value.filter(m => m.is_active).length)
 
 onMounted(() => fetchTeam())
 
-function isActive(item: typeof navItems[0]) {
+function isActive(item: { route: string }) {
   if (item.route === '/') return route.path === '/'
   return route.path.startsWith(item.route)
 }
 
+// "More" tab is active whenever we're not on one of the primary tab routes.
+const moreActive = computed(() => !tabItems.some(t => isActive(t)))
+
 function handleNav(item: typeof navItems[0]) {
   router.push(item.route)
   if (typeof window !== 'undefined' && window.innerWidth < 980) sidebarOpen.value = false
+}
+
+function goTab(item: { route: string }) {
+  router.push(item.route)
+  sidebarOpen.value = false
 }
 
 function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
@@ -58,6 +74,9 @@ provide('sidebarCollapsed', sidebarCollapsed)
           </button>
         </div>
         <div class="logo-sub">Window Cleaning</div>
+        <button class="drawer-close" type="button" aria-label="Close menu" @click="sidebarOpen = false">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
       <nav class="nav">
         <button
@@ -91,5 +110,24 @@ provide('sidebarCollapsed', sidebarCollapsed)
     <div class="main">
       <slot />
     </div>
+
+    <!-- MOBILE BOTTOM TAB BAR -->
+    <nav class="mobile-tabbar" aria-label="Primary">
+      <button
+        v-for="t in tabItems"
+        :key="t.route"
+        type="button"
+        class="tab-btn"
+        :class="{ active: isActive(t) }"
+        @click="goTab(t)"
+      >
+        <i class="fa-solid" :class="t.icon"></i>
+        <span>{{ t.label }}</span>
+      </button>
+      <button type="button" class="tab-btn" :class="{ active: moreActive && !sidebarOpen, open: sidebarOpen }" @click="toggleSidebar">
+        <i class="fa-solid fa-bars"></i>
+        <span>More</span>
+      </button>
+    </nav>
   </div>
 </template>
