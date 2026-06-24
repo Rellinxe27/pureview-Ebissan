@@ -22,5 +22,9 @@
     "@vue/test-utils": "^2.4.11",
     "happy-dom": "^20.10.6",
     "vitest": "^4.1.9"
+  },
+  "overrides": {
+    "commander": "^13.1.0",
+    "crossws": "^0.4.1"
   }
 }
