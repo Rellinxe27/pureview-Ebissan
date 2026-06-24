@@ -79,7 +79,7 @@ async function changeStatus(id: string, status: 'accepted' | 'declined', e: Even
             <td>${{ q.total_amount.toFixed(2) }}</td>
             <td>{{ q.valid_until ?? '—' }}</td>
             <td><span class="status" :class="statusColors[q.status]">{{ q.status }}</span></td>
-            <td style="display:flex;gap:6px">
+            <td class="cell-actions">
               <button v-if="q.status === 'sent'" class="row-action" type="button" @click.stop="changeStatus(q.id, 'accepted', $event)">Accept</button>
               <button v-if="q.status === 'sent'" class="row-action danger" type="button" @click.stop="changeStatus(q.id, 'declined', $event)">Decline</button>
             </td>

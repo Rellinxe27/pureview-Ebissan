@@ -54,8 +54,15 @@ function goTab(item: { route: string }) {
   sidebarOpen.value = false
 }
 
-function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
-function toggleCollapse() { sidebarCollapsed.value = !sidebarCollapsed.value }
+// One control, two behaviours: on desktop the topbar menu button collapses the
+// sidebar rail; on mobile it opens the slide-in drawer.
+function toggleSidebar() {
+  if (typeof window !== 'undefined' && window.innerWidth >= 981) {
+    sidebarCollapsed.value = !sidebarCollapsed.value
+  } else {
+    sidebarOpen.value = !sidebarOpen.value
+  }
+}
 provide('toggleSidebar', toggleSidebar)
 provide('sidebarCollapsed', sidebarCollapsed)
 </script>
@@ -67,12 +74,7 @@ provide('sidebarCollapsed', sidebarCollapsed)
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="logo-area">
-        <div class="logo-row">
-          <img class="logo-img" src="/pureview-logo-light.png" alt="PureView" />
-          <button class="sidebar-toggle" type="button" :aria-label="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'" @click="toggleCollapse">
-            <i :class="sidebarCollapsed ? 'fa-solid fa-chevron-right' : 'fa-solid fa-chevron-left'"></i>
-          </button>
-        </div>
+        <img class="logo-img" src="/pureview-logo-light.png" alt="PureView" />
         <div class="logo-sub">Window Cleaning</div>
         <button class="drawer-close" type="button" aria-label="Close menu" @click="sidebarOpen = false">
           <i class="fa-solid fa-xmark"></i>

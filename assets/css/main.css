@@ -35,11 +35,7 @@ button{cursor:pointer}
 .logo-badge i{color:#fff;font-size:18px}
 .logo-name{font-size:13px;font-weight:700;color:#fff;line-height:1.2}
 .logo-sub{font-size:11px;color:rgba(255,255,255,.5)}
-.logo-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
-.logo-row .logo-img{flex:1;max-width:140px}
-.logo-img{display:block;width:100%;max-width:158px;height:auto}
-.sidebar-toggle{display:none;flex-shrink:0;width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;align-items:center;justify-content:center;font-size:10px;transition:all .2s}
-.sidebar-toggle:hover{background:rgba(255,255,255,.13);color:#fff}
+.logo-img{display:block;width:100%;max-width:158px;height:auto;margin-bottom:4px}
 .nav{flex:1;padding:10px 0}
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;border-left:3px solid transparent;transition:all .2s;width:100%;background:none;border-top:none;border-right:none;border-bottom:none;text-align:left;font-weight:400}
 .nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
@@ -65,18 +61,17 @@ button{cursor:pointer}
    Sidebar collapsed state (desktop only)
    ============================================================ */
 @media (min-width:981px){
-  .sidebar-toggle{display:flex}
-  .sidebar-collapsed .sidebar{width:60px}
-  .sidebar-collapsed .logo-row .logo-img{max-width:36px;height:36px;object-fit:contain}
+  /* topbar menu button (always visible) doubles as the desktop collapse toggle */
+  .sidebar-collapsed .sidebar{width:64px}
+  .sidebar-collapsed .logo-area{padding:18px 0 12px}
+  .sidebar-collapsed .logo-img{max-width:34px;height:34px;object-fit:contain;margin:0 auto}
   .sidebar-collapsed .logo-sub{display:none}
-  .sidebar-collapsed .logo-row{justify-content:center;margin-bottom:0}
-  .sidebar-collapsed .nav-item{justify-content:center;padding:10px 0}
+  .sidebar-collapsed .nav-item{justify-content:center;padding:11px 0;gap:0}
   .sidebar-collapsed .nav-item i{width:auto}
   .sidebar-collapsed .nav-label{opacity:0;pointer-events:none;width:0;overflow:hidden}
   .sidebar-collapsed .sidebar-bottom{padding:10px 8px}
   .sidebar-collapsed .user-info,.sidebar-collapsed .user-logout{display:none}
   .sidebar-collapsed .user-chip{justify-content:center}
-  .sidebar-collapsed .sidebar-toggle i{transition:transform .25s}
 }
 
 /* MAIN */
@@ -93,7 +88,8 @@ button{cursor:pointer}
 .btn-primary:hover{background:var(--blue-light)}
 .notif{position:relative;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .notif-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--red);border-radius:50%;font-size:9px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.hamburger{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:#fff;align-items:center;justify-content:center;color:var(--text);font-size:16px}
+.hamburger{display:flex;flex-shrink:0;width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:#fff;align-items:center;justify-content:center;color:var(--gray-600);font-size:16px;transition:background .15s,color .15s}
+.hamburger:hover{background:var(--gray-50);color:var(--blue)}
 
 /* CONTENT */
 .content{padding:24px 28px;flex:1}
@@ -283,6 +279,7 @@ button{cursor:pointer}
 .row-action{height:28px;padding:0 12px;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--blue);font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;font-family:inherit;transition:background .12s}
 .row-action:hover{background:var(--blue-pale)}
 .row-action.danger{color:var(--red)}
+.cell-actions{display:flex;gap:6px}
 .icon-btn{width:30px;height:30px;display:inline-grid;place-items:center;padding:0;border:1px solid var(--border);border-radius:7px;background:#fff;color:var(--gray-500);cursor:pointer;transition:all .12s}
 .icon-btn:hover{color:var(--red);background:#fff5f5}
 .icon-btn:disabled{opacity:.4;cursor:not-allowed}
@@ -369,6 +366,7 @@ button{cursor:pointer}
 .cal-event:hover{background:#c7dbfd}
 .cal-event strong{display:block;font-weight:700;color:var(--text)}
 .cal-event span{color:var(--text-muted)}
+.cal-monthbar{display:none}
 
 /* Tasks */
 .task-list{display:flex;flex-direction:column;gap:8px}
@@ -589,16 +587,14 @@ button{cursor:pointer}
   .user-chip{padding:10px;margin:0;background:rgba(255,255,255,.05)}
   .user-name{font-size:13px}
 
-  /* collapse is a desktop-only affordance — neutralize on mobile */
+  /* collapse is a desktop-only affordance — neutralize on mobile (drawer is always full) */
   .sidebar-collapsed .sidebar{width:84vw;max-width:300px}
   .sidebar-collapsed .logo-sub{display:block}
-  .sidebar-collapsed .logo-row .logo-img{max-width:140px;height:auto;object-fit:unset}
-  .sidebar-collapsed .logo-row{justify-content:space-between;margin-bottom:4px}
-  .sidebar-collapsed .nav-item{justify-content:flex-start}
+  .sidebar-collapsed .logo-img{max-width:158px;height:auto;object-fit:unset;margin:0 0 4px}
+  .sidebar-collapsed .nav-item{justify-content:flex-start;padding:13px 14px;gap:14px}
   .sidebar-collapsed .nav-label{opacity:1;pointer-events:auto;width:auto;overflow:visible}
   .sidebar-collapsed .user-info,.sidebar-collapsed .user-logout{display:flex}
   .sidebar-collapsed .user-chip{justify-content:flex-start}
-  .sidebar-toggle{display:none}
 
   /* ---- Bottom tab bar (the "this is an app" signal) ---- */
   .mobile-tabbar{display:grid;grid-template-columns:repeat(5,1fr);
@@ -647,6 +643,13 @@ button{cursor:pointer}
   .card{border-radius:16px}
   .form-card .form-grid{grid-template-columns:1fr}
 
+  /* ---- Toolbar: filter tabs swipe horizontally instead of overflowing ---- */
+  .toolbar{flex-wrap:nowrap;align-items:stretch}
+  .search-box{flex:1 1 auto}
+  .filter-tabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .filter-tabs::-webkit-scrollbar{display:none}
+  .filter-tabs button{flex:0 0 auto;white-space:nowrap}
+
   /* dashboard quick-actions: flow inline as a card grid, not a 2nd bottom bar */
   .bottom-bar{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
     border-top:none;border:1px solid var(--border);border-radius:16px;margin-top:4px;
@@ -667,11 +670,80 @@ button{cursor:pointer}
 }
 @keyframes sheet-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
+/* ============================================================
+   Mobile — data tables become cards (≤680px)
+   Horizontal-scroll tables read as a shrunk desktop; stack each
+   row into a self-describing card instead.
+   ============================================================ */
+@media (max-width:680px){
+  .data-table-wrap{border:none;border-radius:0;background:transparent;overflow:visible}
+  .data-table{font-size:13px}
+  .data-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .data-table tbody,.data-table tr,.data-table td{display:block;width:100%}
+  .data-table tr{background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  .data-table tr:last-child td{border-bottom:none}
+  .data-table td{border:none;padding:3px 0;color:var(--text)}
+  .data-table td:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
+  .data-table td:empty{display:none}
+  .clickable-row:hover,.clickable-row:active{background:var(--blue-pale)}
+  /* trailing action cell → full-width tappable buttons */
+  .data-table td:last-child:not(:first-child){display:flex;gap:8px;margin-top:10px}
+  .data-table td:last-child:not(:first-child) .row-action{flex:1;height:40px;font-size:13px}
+  /* footer totals row stays a simple card */
+  .data-table tfoot{display:block}
+  .data-table tfoot td{border-top:2px solid var(--border)}
+
+  /* ---- Reports: a print doc that also reads well on a phone ---- */
+  .report{padding:20px 16px;border-radius:14px}
+  .report-letterhead{flex-direction:column;gap:14px}
+  .report-meta{text-align:left}
+  .report-brand{gap:12px}
+  .report-kpis{grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  .report-kpi{padding:12px 14px}
+  .report-kpi .k-value{font-size:19px}
+  .report-split{grid-template-columns:1fr}
+  .report-bar-row{grid-template-columns:64px 1fr 72px;gap:8px;font-size:11px}
+  .report-footer{flex-direction:column;gap:4px}
+}
+
 @media (max-width:560px){
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .toolbar{gap:8px}
   .search-box{min-width:0;max-width:none}
-  .header-actions .outline-action{display:none}
+  /* keep essential header buttons (e.g. calendar prev/next) but make them compact */
+  .header-actions{gap:6px}
+  .header-actions .outline-action{padding:8px 10px}
+}
+
+/* ============================================================
+   Mobile — calendar becomes a compact month view (≤680px)
+   Dots mark days with appointments; full details live on the
+   appointments list / detail pages.
+   ============================================================ */
+@media (max-width:980px){
+  /* month navigator replaces the cramped topbar chevrons + hidden subtitle */
+  .cal-topnav{display:none}
+  .cal-monthbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .cal-monthbar strong{font-size:17px;font-weight:700;color:var(--text)}
+  .cal-monthbar button{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--border);
+    border-radius:11px;background:#fff;color:var(--text);cursor:pointer}
+  .cal-monthbar button:active{background:var(--gray-100)}
+  .cal-monthbar svg{width:18px;height:18px}
+}
+@media (max-width:680px){
+  .cal-header span{padding:8px 0;font-size:10px}
+  .cal-cell{min-height:54px;padding:4px 2px}
+  .cal-day-num{width:22px;height:22px;font-size:12px;margin-bottom:3px}
+  .cal-events{flex-direction:row;flex-wrap:wrap;gap:3px;justify-content:flex-start;padding:0 2px}
+  /* event chips collapse to colour dots — tappable, no overflow */
+  .cal-event{width:8px;height:8px;min-height:0;padding:0;border:none!important;border-radius:50%;
+    background:var(--evt,var(--blue))}
+  .cal-event :is(strong,span){display:none}
+}
+@media (max-width:380px){
+  .cal-cell{min-height:48px}
+  .report-kpis{grid-template-columns:1fr 1fr}
 }
 @media (max-width:380px){
   .stat-value{font-size:18px}

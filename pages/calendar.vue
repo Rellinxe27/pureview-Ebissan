@@ -56,13 +56,20 @@ const statusColor: Record<string, string> = {
       </div>
     </div>
     <div class="header-actions">
-      <button class="outline-action" type="button" @click="prev"><ChevronLeft /></button>
-      <button class="outline-action" type="button" @click="next"><ChevronRight /></button>
-      <button class="primary-action" type="button" @click="router.push('/appointments/new')"><Plus /> New Appointment</button>
+      <button class="outline-action cal-topnav" type="button" @click="prev"><ChevronLeft /></button>
+      <button class="outline-action cal-topnav" type="button" @click="next"><ChevronRight /></button>
+      <button class="primary-action" type="button" @click="router.push('/appointments/new')"><Plus /> <span class="ca-label">New Appointment</span></button>
     </div>
   </header>
 
   <section class="content">
+    <!-- Mobile month navigator (desktop uses the topbar chevrons + subtitle) -->
+    <div class="cal-monthbar">
+      <button type="button" aria-label="Previous month" @click="prev"><ChevronLeft /></button>
+      <strong>{{ monthNames[month] }} {{ year }}</strong>
+      <button type="button" aria-label="Next month" @click="next"><ChevronRight /></button>
+    </div>
+
     <div class="calendar-grid">
       <div class="cal-header">
         <span v-for="d in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" :key="d">{{ d }}</span>
@@ -84,7 +91,7 @@ const statusColor: Record<string, string> = {
               :key="a.id"
               type="button"
               class="cal-event"
-              :style="{ borderLeftColor: statusColor[a.status] ?? '#4167e8' }"
+              :style="{ borderLeftColor: statusColor[a.status] ?? '#4167e8', '--evt': statusColor[a.status] ?? '#4167e8' }"
               @click="router.push(`/appointments/${a.id}`)"
             >
               <strong>{{ timeOf(a.scheduled_at) }}</strong>
