@@ -508,7 +508,7 @@ const router = useRouter()
     <button class="btn-primary" type="button" @click="openModal('apptModal')">
       <i class="fa-solid fa-plus"></i> New Appointment
     </button>
-    <div class="notif-wrap" @click.stop>
+    <div v-if="false" class="notif-wrap" @click.stop>
       <button class="notif" type="button" aria-label="Notifications" @click="toggleNotif">
         <i class="fa-regular fa-bell" style="color:var(--text-muted)"></i>
         <span class="notif-badge">{{ notifications.length }}</span>
