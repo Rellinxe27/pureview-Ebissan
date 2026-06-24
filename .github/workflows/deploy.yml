@@ -1,0 +1,14 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Pages deploy
+        run: |
+          curl -X POST \
+            "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/648e4163-06e9-4685-9f56-9b908ef4c6b6"
