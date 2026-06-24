@@ -574,7 +574,7 @@ const router = useRouter()
             <option>This Year</option>
           </select>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="dash-charts">
           <div>
             <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:10px">Revenue by Service</div>
             <div class="chart-wrap" style="height:140px;display:flex;align-items:center;justify-content:center">
