@@ -1,0 +1,14 @@
+node_modules
+.nuxt
+.output
+.data
+.nitro
+.cache
+dist
+*.log
+dashboard-preview.png
+
+# environment — never commit real credentials
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "crystal-dashboard",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["nuxt", "dev", "--host", "127.0.0.1", "--port", "3003"],
+      "port": 3003
+    }
+  ]
+}
