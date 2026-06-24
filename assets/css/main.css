@@ -29,18 +29,23 @@ button{cursor:pointer}
 .app-shell{display:flex;min-height:100vh}
 
 /* SIDEBAR */
-.sidebar{width:220px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow-y:auto}
+.sidebar{width:220px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow-y:auto;transition:width .25s ease}
 .logo-area{padding:20px 16px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
 .logo-badge{width:36px;height:36px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .logo-badge i{color:#fff;font-size:18px}
 .logo-name{font-size:13px;font-weight:700;color:#fff;line-height:1.2}
 .logo-sub{font-size:11px;color:rgba(255,255,255,.5)}
-.logo-img{display:block;width:100%;max-width:158px;height:auto;margin-bottom:4px}
+.logo-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.logo-row .logo-img{flex:1;max-width:140px}
+.logo-img{display:block;width:100%;max-width:158px;height:auto}
+.sidebar-toggle{display:none;flex-shrink:0;width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;align-items:center;justify-content:center;font-size:10px;transition:all .2s}
+.sidebar-toggle:hover{background:rgba(255,255,255,.13);color:#fff}
 .nav{flex:1;padding:10px 0}
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;border-left:3px solid transparent;transition:all .2s;width:100%;background:none;border-top:none;border-right:none;border-bottom:none;text-align:left;font-weight:400}
 .nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
 .nav-item.active{background:rgba(37,99,235,.25);color:#fff;border-left-color:var(--blue-light)}
-.nav-item i{width:16px;font-size:14px;text-align:center}
+.nav-item i{width:16px;font-size:14px;text-align:center;flex-shrink:0}
+.nav-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .2s}
 .sidebar-bottom{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08)}
 .user-chip{display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:8px;padding:4px;margin:-4px;transition:background .2s}
 .user-chip:hover{background:rgba(255,255,255,.07)}
@@ -51,8 +56,26 @@ button{cursor:pointer}
 .user-logout{color:rgba(255,255,255,.45);font-size:13px;background:none;border:none;padding:4px;flex-shrink:0}
 .user-logout:hover{color:#fff}
 
+/* ============================================================
+   Sidebar collapsed state (desktop only)
+   ============================================================ */
+@media (min-width:981px){
+  .sidebar-toggle{display:flex}
+  .sidebar-collapsed .sidebar{width:60px}
+  .sidebar-collapsed .logo-row .logo-img{max-width:36px;height:36px;object-fit:contain}
+  .sidebar-collapsed .logo-sub{display:none}
+  .sidebar-collapsed .logo-row{justify-content:center;margin-bottom:0}
+  .sidebar-collapsed .nav-item{justify-content:center;padding:10px 0}
+  .sidebar-collapsed .nav-item i{width:auto}
+  .sidebar-collapsed .nav-label{opacity:0;pointer-events:none;width:0;overflow:hidden}
+  .sidebar-collapsed .sidebar-bottom{padding:10px 8px}
+  .sidebar-collapsed .user-info,.sidebar-collapsed .user-logout{display:none}
+  .sidebar-collapsed .user-chip{justify-content:center}
+  .sidebar-collapsed .sidebar-toggle i{transition:transform .25s}
+}
+
 /* MAIN */
-.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow-x:hidden}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow-x:clip}
 
 /* TOPBAR */
 .topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:16px;height:60px;position:sticky;top:0;z-index:50}
@@ -538,15 +561,47 @@ button{cursor:pointer}
   .app-shell.sidebar-open .sidebar{left:0}
   .sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:299}
   .app-shell.sidebar-open .sidebar-backdrop{display:block}
+  /* Sidebar always fully expanded on mobile — collapse is desktop-only */
+  .sidebar-collapsed .sidebar{width:220px}
+  .sidebar-collapsed .logo-sub{display:block}
+  .sidebar-collapsed .logo-row .logo-img{max-width:140px;height:auto;object-fit:unset}
+  .sidebar-collapsed .logo-row{justify-content:space-between;margin-bottom:4px}
+  .sidebar-collapsed .nav-item{justify-content:flex-start;padding:9px 16px}
+  .sidebar-collapsed .nav-item i{width:16px}
+  .sidebar-collapsed .nav-label{opacity:1;pointer-events:auto;width:auto;overflow:visible}
+  .sidebar-collapsed .sidebar-bottom{padding:12px 16px}
+  .sidebar-collapsed .user-info,.sidebar-collapsed .user-logout{display:flex}
+  .sidebar-collapsed .user-chip{justify-content:flex-start}
   .hamburger{display:flex}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .feedback-grid{grid-template-columns:1fr}
-  .topbar{padding:0 16px}
+  .topbar{padding:0 16px;height:56px}
   .content{padding:16px}
-  .bottom-bar{padding:12px 16px;overflow-x:auto}
+  .bottom-bar{padding:10px 16px;overflow-x:auto;gap:8px}
+  .bbar-btn{padding:8px 8px;font-size:11px;min-height:44px}
   .client-grid{grid-template-columns:1fr}
   .form-card .form-grid{grid-template-columns:1fr}
+  .modal{padding:20px;border-radius:14px;width:100%;max-width:92vw}
+  .topbar-welcome h1,.title-row h1{font-size:15px}
+  .topbar-welcome p{display:none}
 }
-@media (max-width:560px){
-  .stats-grid{grid-template-columns:1fr}
+@media (max-width:640px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .row-2{grid-template-columns:1fr}
+  .header-actions .outline-action{display:none}
+  .bottom-bar{display:grid;grid-template-columns:repeat(4,1fr);overflow-x:visible;gap:6px;padding:8px 12px}
+  .bbar-btn{flex:unset;min-height:44px}
+  .content{padding:12px}
+}
+@media (max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .stat-value{font-size:17px}
+  .topbar{height:52px;padding:0 12px;gap:8px}
+  .topbar-welcome h1,.title-row h1{font-size:14px}
+  .date-picker span{display:none}
+  .btn-primary,.primary-action{padding:7px 12px;font-size:12px}
+  .modal{padding:16px;border-radius:12px;max-height:95vh}
+  .form-grid{grid-template-columns:1fr}
+  .bottom-bar{grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 8px}
+  .bbar-btn{font-size:10px;padding:6px 4px}
 }

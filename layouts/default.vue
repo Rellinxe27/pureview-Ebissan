@@ -4,6 +4,7 @@ const { members, fetchAll: fetchTeam } = useTeam()
 const route  = useRoute()
 const router = useRouter()
 const sidebarOpen = ref(false)
+const sidebarCollapsed = ref(false)
 
 const navItems = [
   { label: 'Dashboard',          icon: 'fa-chart-pie',      route: '/' },
@@ -38,17 +39,24 @@ function handleNav(item: typeof navItems[0]) {
 }
 
 function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
+function toggleCollapse() { sidebarCollapsed.value = !sidebarCollapsed.value }
 provide('toggleSidebar', toggleSidebar)
+provide('sidebarCollapsed', sidebarCollapsed)
 </script>
 
 <template>
-  <div class="app-shell" :class="{ 'sidebar-open': sidebarOpen }">
+  <div class="app-shell" :class="{ 'sidebar-open': sidebarOpen, 'sidebar-collapsed': sidebarCollapsed }">
     <div class="sidebar-backdrop" @click="sidebarOpen = false"></div>
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="logo-area">
-        <img class="logo-img" src="/pureview-logo-light.png" alt="PureView" />
+        <div class="logo-row">
+          <img class="logo-img" src="/pureview-logo-light.png" alt="PureView" />
+          <button class="sidebar-toggle" type="button" :aria-label="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'" @click="toggleCollapse">
+            <i :class="sidebarCollapsed ? 'fa-solid fa-chevron-right' : 'fa-solid fa-chevron-left'"></i>
+          </button>
+        </div>
         <div class="logo-sub">Window Cleaning</div>
       </div>
       <nav class="nav">
@@ -58,9 +66,11 @@ provide('toggleSidebar', toggleSidebar)
           type="button"
           class="nav-item"
           :class="{ active: isActive(item) }"
+          :title="item.label"
           @click="handleNav(item)"
         >
-          <i :class="item.regular ? item.icon : `fa-solid ${item.icon}`"></i>{{ item.label }}
+          <i :class="item.regular ? item.icon : `fa-solid ${item.icon}`"></i>
+          <span class="nav-label">{{ item.label }}</span>
         </button>
       </nav>
       <div class="sidebar-bottom">
